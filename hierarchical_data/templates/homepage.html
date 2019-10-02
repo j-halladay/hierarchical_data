@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load mptt_tags %}
+<ul>
+    {% recursetree files %}
+    <li>
+        {{ node.name }}
+        {% if node.is_folder %}
+        <a href="addfolder/{{node.id}}">Add folder</a> <a href="addfile/{{node.id}}">Add file</a>
+        {% endif %}
+        {% if not node.is_leaf_node %}
+        <ul class="children">
+            {{ children }}
+        </ul>
+        {% endif %}
+    </li>
+    {% endrecursetree %}
+</ul>
+{% endblock %}
